@@ -42,7 +42,14 @@ app-example
 /ios
 /android
 
+#ai
+/.claude
+/.agents
+.mcp.json
+skills-lock.json
+
 # misc
 /.vscode
-/.claude
+
+
 
