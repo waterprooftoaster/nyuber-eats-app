@@ -37,3 +37,25 @@ select policyname, tablename, cmd
 from pg_policies
 where schemaname = 'public'
 order by tablename, policyname;
+
+-- 7. Verify PostGIS extension is installed
+select extname, extversion
+from pg_extension
+where extname = 'postgis';
+
+-- 8. Verify location columns were added to restaurants
+select column_name, data_type
+from information_schema.columns
+where table_schema = 'public'
+  and table_name   = 'restaurants'
+  and column_name  in ('latitude', 'longitude')
+order by column_name;
+
+-- 9. Smoke-test find_nearby_restaurants RPC
+-- Run as authenticated role to validate the GRANT (superuser bypasses it).
+-- Expects an empty result set on a fresh database (no seed data) — no error = pass.
+set role authenticated;
+select id, name, latitude, longitude
+from public.find_nearby_restaurants(40.758, -73.985, 50)
+limit 5;
+reset role;
