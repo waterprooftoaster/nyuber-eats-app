@@ -48,6 +48,10 @@ app-example
 .mcp.json
 skills-lock.json
 
+# Supabase CLI temp/local state (not secrets, but not portable)
+supabase/.branches/
+supabase/.temp/
+
 # misc
 /.vscode
 
